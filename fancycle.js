@@ -1,11 +1,30 @@
 $(document).ready(function(){
-  $("#justin").click(function(){
-    var counter = parseInt($("#baby").find("#view-counter").text())
+  toggleSong("#justin", "#baby")
+  toggleSong("#selena", "#come-and-get-it")
+  toggleSong("#miley",  "#wrecking-ball")
 
-    $("#baby").toggleClass("hidden")
+  function toggleSong(artistID, songID){
+    $(artistID).click(function(){
+      var song    = $(songID),
+          counter = parseInt(song.find("#view-counter").text())
 
-    if ($("#baby").attr("class") === "song hidden") { counter++ }
+      hideSong(song)
+      addView(song)
 
-    $("#baby").find("#view-counter").text(counter)
-  });
+      function hideSong(song){
+        song.toggleClass("hidden")
+      }
+
+      function addView(song){
+        if (songHidden(song)) {
+          counter++
+          song.find("#view-counter").text(counter)
+        }
+      }
+
+      function songHidden(song){
+        return song.attr("class") === "song"
+      }
+    });
+  }
 });
